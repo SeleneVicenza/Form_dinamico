@@ -5,9 +5,9 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
 
 class Form {
     protected string $formConfig;
-    protected array $formAttribute;
-    protected array $formFields;
-    protected string $statusMsg;
+    protected array $formAttribute = [];
+    protected array $formFields = [];
+    protected string $statusMsg = '';
     protected FormBuilder $builder;
     protected FormChecker $checker;
 
@@ -31,9 +31,11 @@ public function __construct(string $config) {
 }
 
     private function init() : Form {
-        extract(require $this->formConfig);
-        /* $this->formAtribute = $formAttribute;
-        $this->formFields = $formFields; */
+        $configArray = require $this->formConfig;
+
+        $this->formAttribute = $configArray['formAttribute'];
+        $this->formFields = is_array($configArray['fields']) ? $configArray['fields'] : [];
+
 
         return $this;
     }
@@ -53,7 +55,8 @@ public function __construct(string $config) {
 
     public function render(): string {
         //FormBuilder
-        return "renderizzare form " . $this->formConfig . "<br>";
+        $form = $this->builder->build($this->formAttribute, $this->formFields);
+        return str_replace("%result%", $this->statusMsg, $form);
     }
 }
 

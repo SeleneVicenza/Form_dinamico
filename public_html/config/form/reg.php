@@ -27,8 +27,7 @@ $fields = [
     ]
 ];
 
-
-return [
+$formData = [
     'formAttribute' => [
         'name' => 'reg',
         'action' => 'index.php',
@@ -38,5 +37,5 @@ return [
     'status' => false
 ];
 
-
+return $formData;
 ?>
