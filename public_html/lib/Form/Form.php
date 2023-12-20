@@ -27,7 +27,7 @@ public function __construct(string $config) {
     $this->checker = $checker; */
     $this->builder = new FormBuilder();
     $this->checker = new FormChecker();
-    $this->init();
+    $this->init()->checkSubmit();
 }
 
     private function init() : Form {
@@ -51,6 +51,11 @@ public function __construct(string $config) {
 
     private function handleSubmit() {
         //FormChecker
+        if ($this->checker->validate($this->fields)) {
+            $this->statusMsg = "Form inviato";
+        }else {
+            $this->statusMsg = "Form NON inviato";
+        }
     }
 
     public function render(): string {
