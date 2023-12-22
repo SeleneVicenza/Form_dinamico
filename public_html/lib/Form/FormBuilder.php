@@ -53,8 +53,11 @@ class FormBuilder {
 
     protected function inputField(string $key, array $value): string {
         $fa = &$value['attribute'];
+        //var_dump($this->fields); exit;
+        $err = $this->fields[$key]['error'] ?? '';
         return <<<INPUT
         <div>
+            $err <br>
             <input type="{$fa['type']}" name="{$fa['name']}" placeholder="{$fa['placeholder']}" value="{$fa['value']}">
         </div>
 

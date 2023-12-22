@@ -42,19 +42,17 @@ public function __construct(string $config) {
 
     private function checkSubmit() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            echo "FORM INVIATO <br>";
+            //echo "FORM INVIATO <br>";
             $this->handleSubmit();
         }else {
-            echo "ERRORE <br>";
+            echo "Compilare i campi e premere invio <br>";
         }
     }
 
     private function handleSubmit() {
         //FormChecker
-        if ($this->checker->validate($this->fields)) {
-            $this->statusMsg = "Form inviato";
-        }else {
-            $this->statusMsg = "Form NON inviato";
+        if ($this->checker->validate($this->formFields)) {
+            $this->statusMsg = "Form inviato <br>";
         }
     }
 
