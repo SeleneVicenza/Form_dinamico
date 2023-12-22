@@ -19,7 +19,7 @@ class FormBuilder {
         //var_dump($fa);
         $this->htmlCode .= <<<FORM
         %result%
-        <form action="{$fa['action']}" name="{$fa['name']}" method="{$fa['method']}">
+        <form action="{$fa['action']}" name="{$fa['name']}" method="{$fa['method']}" novalidate>
         FORM;
         return $this;
     }
@@ -41,9 +41,10 @@ class FormBuilder {
     }
 
     protected function endForm(): FormBuilder {
+        $btnText = $this->attribute['submitButtonText'];
         $this->htmlCode .= <<<FORM
         <div>
-            <input type="submit" value="Invia form">
+            <input type="submit" value="$btnText">
         </div>
         </form>
         FORM;

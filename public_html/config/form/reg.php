@@ -31,10 +31,11 @@ $formData = [
     'formAttribute' => [
         'name' => 'reg',
         'action' => 'index.php',
-        'method' => 'post'
+        'method' => 'post',
+        'submitButtonText' => 'Registrati'
     ],
     'fields' => $fields,
-    'status' => false
+
 ];
 
 return $formData;

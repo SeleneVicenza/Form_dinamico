@@ -6,7 +6,7 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
 class Form {
     protected string $formConfig;
     protected array $formAttribute = [];
-    protected array $formFields = [];
+    protected array $fields = [];
     protected string $statusMsg = '';
     protected FormBuilder $builder;
     protected FormChecker $checker;
@@ -34,7 +34,7 @@ public function __construct(string $config) {
         $configArray = require $this->formConfig;
 
         $this->formAttribute = $configArray['formAttribute'];
-        $this->formFields = is_array($configArray['fields']) ? $configArray['fields'] : [];
+        $this->fields = is_array($configArray['fields']) ? $configArray['fields'] : [];
 
 
         return $this;
@@ -51,15 +51,23 @@ public function __construct(string $config) {
 
     private function handleSubmit() {
         //FormChecker
-        if ($this->checker->validate($this->formFields)) {
+        if ($this->checker->validate($this->fields)) {
+            $this->cleanField();
             $this->statusMsg = "Form inviato <br>";
         }
     }
 
     public function render(): string {
         //FormBuilder
-        $form = $this->builder->build($this->formAttribute, $this->formFields);
+        $form = $this->builder->build($this->formAttribute, $this->fields);
         return str_replace("%result%", $this->statusMsg, $form);
+    }
+
+
+    private function cleanField(): void {
+        foreach ($this->fields as &$fields) {
+            $fields['attribute']['value'] = '';
+        }
     }
 }
 
